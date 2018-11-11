@@ -5,10 +5,10 @@
     <classes>
       <class name="com.forcepoint.tests.SortTest">
         <methods>
+          <include name="popularResultsIsSortedTest"/>
           <include name="init"/>
           <include name="tearDown"/>
           <include name="setUp"/>
-          <include name="popularResultsIsSortTest"/>
         </methods>
       </class> <!-- com.forcepoint.tests.SortTest -->
     </classes>
