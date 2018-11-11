@@ -15,9 +15,9 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
-import com.forcepoint.udacity.pages.BasePage;
-import com.forcepoint.udacity.utilities.TestConfig;
-import com.forcepoint.udacity.utilities.Utilities;
+import com.forcepoint.pages.BasePage;
+import com.forcepoint.utilities.TestConfig;
+import com.forcepoint.utilities.Utilities;
 import com.relevantcodes.extentreports.LogStatus;
 
 

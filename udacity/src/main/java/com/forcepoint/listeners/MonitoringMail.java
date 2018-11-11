@@ -16,7 +16,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.forcepoint.udacity.utilities.TestConfig;
+import com.forcepoint.utilities.TestConfig;
 
 public class MonitoringMail
 {
