@@ -3,13 +3,14 @@
 <suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.forcepoint.tests.AppTest">
+      <class name="com.forcepoint.tests.SortTest">
         <methods>
           <include name="init"/>
           <include name="tearDown"/>
-          <include name="shouldAnswerWithTrue"/>
+          <include name="setUp"/>
+          <include name="popularResultsIsSortTest"/>
         </methods>
-      </class> <!-- com.forcepoint.tests.AppTest -->
+      </class> <!-- com.forcepoint.tests.SortTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

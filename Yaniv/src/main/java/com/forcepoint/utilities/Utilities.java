@@ -2,6 +2,7 @@ package com.forcepoint.utilities;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -19,9 +20,8 @@ public class Utilities {
 		String value = "";
 		try {
 
-			FileInputStream input = new FileInputStream(
-					"C:\\Users\\Zoie\\eclipse-workspace\\Yaniv\\src\\test\\resources\\properties\\Config.properties");
-
+			 InputStream input = new FileInputStream(System.getProperty("user.dir") +
+			 "\\src\\test\\resources\\properties\\Config.properties");
 			// load a properties file
 			prop.load(input);
 
@@ -35,10 +35,10 @@ public class Utilities {
 	public static WebDriver getBrowser() {
 		String browserName = readProp("browser");
 		if (browserName.equals("chrome")) {
-			System.setProperty("webdriver.chrome.driver", "C:\\Users\\Zoie\\eclipse-workspace\\Yaniv\\src\\test\\resources\\executables\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", (System.getProperty("user.dir") + "\\src\\test\\resources\\executables\\chromedriver.exe"));
 			driver = new ChromeDriver();
 		} else if (browserName.equals("ie")) {
-			System.setProperty("webdriver.ie.driver", "C:/Users/yaniv-z/SeleniumDrivers/MicrosoftWebDriver");
+			System.setProperty("webdriver.ie.driver", (System.getProperty("user.dir") + "C:/Users/yaniv-z/SeleniumDrivers/MicrosoftWebDriver"));
 			driver = new InternetExplorerDriver();
 		} else if (browserName.equals("firefox")) {
 			System.setProperty("webdriver.gecko.driver", "C:\\Users\\Zoie\\Work\\SeleniumDrivers\\geckodriver.exe");

@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import com.aventstack.extentreports.ExtentTest;
+
 public class MainPage extends BasePage {
 
 	@FindBy(xpath = "//input[@id='query']")
@@ -21,13 +23,14 @@ public class MainPage extends BasePage {
 	@FindBy(xpath = "//a[@class='im-usage']")
 	private List<WebElement> usage;
 
-	public MainPage(WebDriver driver) {
-		super(driver);
+	public MainPage(WebDriver driver, ExtentTest test) {
+		super(driver, test);
 	}
 
 	public void searchItem(String text) {
 		fillText(searchField, text);
 		click(searchBtn);
+		
 	}
 
 	public void selectFilterByNewst() {
@@ -44,12 +47,12 @@ public class MainPage extends BasePage {
 		List<Integer> lList = new ArrayList<Integer>();
 		List<WebElement> elementList = usage;
 
+		//Take out only the digits from list
 		for (WebElement el : elementList) {
 			obtainedList.add(el.getText().substring(0, 3));
 		}
 
 		for (int i = 0; i < obtainedList.size(); i++) {
-			// obtainedList.get(i).replaceAll(" ", "");
 			obtainedList.set(i, obtainedList.get(i).replaceAll("\\s+", ""));
 		}
 
@@ -63,30 +66,14 @@ public class MainPage extends BasePage {
 
 	public List<Integer> getSortedList() {
 
-		List<String> obtainedList = new ArrayList<>();
-		List<Integer> lList = new ArrayList<Integer>();
-		List<WebElement> elementList = usage;
-		for (WebElement el : elementList) {
-			obtainedList.add(el.getText().substring(0, 3));
-
-		}
-
-		for (int i = 0; i < obtainedList.size(); i++) {
-			// obtainedList.get(i).replaceAll(" ", "");
-			obtainedList.set(i, obtainedList.get(i).replaceAll("\\s+", ""));
-		}
-
-		for (String str : obtainedList) {
-			lList.add(Integer.parseInt(str));
-
-		}
-
 		ArrayList<Integer> sortedList = new ArrayList<>();
 
-		for (Integer i : lList) {
+		//duplicate unSorted list
+		for (Integer i : getUnsotrtedList()) {
 			sortedList.add(i);
 		}
 
+		//sort list
 		Collections.sort(sortedList, Collections.reverseOrder());
 
 		return sortedList;
@@ -94,14 +81,9 @@ public class MainPage extends BasePage {
 	
 	public boolean checkIfListIsSorted()
 	{
-		selectFilterByNewst();
-		if (getSortedList() == getUnsotrtedList() ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-		
+
+		boolean sorted = getSortedList().equals(getUnsotrtedList());
+		return sorted;
 		
 		
 	}

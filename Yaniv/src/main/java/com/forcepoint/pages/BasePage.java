@@ -1,15 +1,16 @@
 package com.forcepoint.pages;
 
-import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import com.forcepoint.utilities.Utilities;
 
 public class BasePage {
@@ -17,17 +18,26 @@ public class BasePage {
 	public WebDriver driver;
 	WebDriverWait wait;
 	Utilities utilities = new Utilities();
-	// public static Logger log = LogManager.getLogger(BasePage.class.getName());
-	// public static ExtentTest test;
 	public static String browser;
-	// public static ExtentReports report = ExtentManager.getInstance();
+	public static ExtentTest test;
+
 	String textColor = "arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');";
 
-	public BasePage(WebDriver driver) {
+	public BasePage(WebDriver driver, ExtentTest test) {
 		this.driver = driver;
+		this.test = test;
 		wait = new WebDriverWait(driver, 10);
 		PageFactory.initElements(driver, this);
+	}
 
+	public void click(WebElement el) {
+		try {
+			visibilityOfElement(el);
+			utilities.colorElement(el, textColor);
+			el.click();
+			test.log(Status.INFO, "Click on " + el);
+		} catch (Exception e) {
+		}
 	}
 
 	public void fillText(WebElement el, String text) {
@@ -37,28 +47,19 @@ public class BasePage {
 			utilities.colorElement(el, textColor);
 			el.sendKeys(text);
 			sleep(1000);
+			test.log(Status.INFO, "Insert the text: " + text + " on " + el);
 		} catch (Exception e) {
 		}
 
 	}
 
+	
 	public void sleep(int time) {
 		try {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public void click(WebElement el) {
-		try {
-			visibilityOfElement(el);
-			utilities.colorElement(el, textColor);
-			el.click();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
 	}
 
 	public String getText(WebElement el) {
@@ -71,7 +72,7 @@ public class BasePage {
 	}
 
 	public String getValue(WebElement el) {
-		
+
 		visibilityOfElement(el);
 		return el.getAttribute("value");
 	}
@@ -97,7 +98,6 @@ public class BasePage {
 		select1.selectByVisibleText(value);
 		sleep(2000);
 	}
-
 
 	public WebElement visibilityOfElement(WebElement el) {
 		WebElement element = wait.until(ExpectedConditions.visibilityOf(el));
